@@ -1,19 +1,23 @@
-import React, { useState } from 'react';
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import React, { useState } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
 
 //? Components
-import ConsumerLogin from './components/auth/login'
-import FarmerRegister from './components/auth/farmer_register'
+import Login from "./components/auth/login";
+import FormikRegister from "./components/auth/register";
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <ConsumerLogin/>     
-        <FarmerRegister/>  
+        <Switch>
+          <Route exact path = '/shop/login' component = { Login } />
+          <Route exact path = '/shop/register' component = {FormikRegister}/>
+          <Route exact path = '/farmer/login' component = { Login } />
+          <Route exact path = '/farmer/register' component = {FormikRegister}/>
+        </Switch>
       </header>
     </div>
   );

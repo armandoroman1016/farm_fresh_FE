@@ -30,7 +30,7 @@ const Register = props => {
   );
 };
 
-const FarmerRegister = withFormik({
+const FormikRegister = withFormik({
   mapPropsToValues({ username, password, email}) {
     return {
       username: username || "",
@@ -52,4 +52,4 @@ const FarmerRegister = withFormik({
   }
 })(Register);
 
-export default FarmerRegister;
+export default FormikRegister;
