@@ -3,13 +3,19 @@ import { Form, Field, withFormik } from "formik";
 import * as Yup from "yup";
 import { Button, Checkbox, Form as SemanticForm } from "semantic-ui-react";
 import axios from "axios";
+import { loginAttempt } from '../../actions'
+import { connect } from 'react-redux'
+
 
 const Login = props => {
+
+  const {location} = props
+
   return (
     <div className="form_container">
-    <Form>
+    <Form location = {location}>
       <SemanticForm>
-          <h2> Login </h2>
+          <h2> {location.pathname === '/farmer/login' ? "Farmer Login"  : "Shop Login"} </h2>
           <SemanticForm.Field>
             <Field placeholder="Username" name="username" type="text" />
           </SemanticForm.Field>
@@ -27,7 +33,7 @@ const Login = props => {
   );
 };
 
-const ConsumerLogin = withFormik({
+const FormikLogin = withFormik({
   mapPropsToValues({ username, password }) {
     return {
       username: username || "",
@@ -38,14 +44,16 @@ const ConsumerLogin = withFormik({
     username: Yup.string().required("Username is a required field."),
     password: Yup.string().required("Password is required field.")
   }),
-  handleSubmit(values) {
-
-    axios.post('https://farm-fresh-bw.herokuapp.com/api/auth/farmer/login', values)
-    .then( res => {
-      localStorage.setItem('token', res.data.token)
-      console.log(res)})
-    .catch( err => console.log(err))
+  handleSubmit(values, props) {
+    const loginEndpoint = props.props.location.pathname
+    props.props.loginAttempt(loginEndpoint, values)
   }
 })(Login);
 
-export default ConsumerLogin;
+const mapStateToProps = state => {
+  return {
+     isLoading : state.isLoading
+  }
+}
+
+export default connect(mapStateToProps, {loginAttempt})(FormikLogin)
