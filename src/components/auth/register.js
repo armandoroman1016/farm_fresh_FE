@@ -1,15 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Form, Field, withFormik } from "formik";
 import * as Yup from "yup";
 import { Button, Checkbox, Form as SemanticForm } from "semantic-ui-react";
 import axios from "axios";
 
 const Register = props => {
+
+  const {location} = props
+
   return (
     <div className="form_container">
-    <Form>
       <SemanticForm>
-          <h2> Register </h2>
+        <Form location = {location}>
+          <h2>{location.pathname === '/farmer/register' ? "Farmer Register"  : "Shop Register"}</h2>
           <SemanticForm.Field>
             <Field placeholder="Username" name="username" type="text" />
           </SemanticForm.Field>
@@ -23,15 +26,15 @@ const Register = props => {
               type="password"
             />
           </SemanticForm.Field>
-           <Button type="submit">Go</Button>
-          </SemanticForm>
-          </Form>
+          <Button type="submit">Go</Button>
+        </Form>
+      </SemanticForm>
     </div>
   );
 };
 
 const FormikRegister = withFormik({
-  mapPropsToValues({ username, password, email}) {
+  mapPropsToValues({ username, password, email }) {
     return {
       username: username || "",
       email: email || "",
@@ -40,15 +43,20 @@ const FormikRegister = withFormik({
   },
   validationSchema: Yup.object().shape({
     username: Yup.string().required("Username is a required field."),
-    email: Yup.string().required('Enter a valid email.'),
+    email: Yup.string().required("Enter a valid email."),
     password: Yup.string().required("Password is required field.")
   }),
-  handleSubmit(values) {
-    axios.post('https://farm-fresh-bw.herokuapp.com/api/auth/farmer/register', values)
-    .then( res => {
-        localStorage.setItem('token', res.data.token)
-    })
-    .catch( err => console.log(err))
+  handleSubmit(values, props) {
+    const registerEndpoint = props.props.location.pathname
+    axios
+      .post(
+        `https://farm-fresh-bw.herokuapp.com/api/auth${registerEndpoint}`,
+        values
+      )
+      .then(res => {
+        localStorage.setItem("token", res.data.token);
+      })
+      .catch(err => console.log(err));
   }
 })(Register);
 
