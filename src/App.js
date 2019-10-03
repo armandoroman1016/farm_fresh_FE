@@ -1,19 +1,33 @@
-import React, { useState } from 'react';
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
-
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import { Switch, Route, useLocation } from "react-router";
+import logo from "./logo.svg";
+import "./App.css";
 
 //? Components
-import ConsumerLogin from './components/auth/login'
-import FarmerRegister from './components/auth/farmer_register'
+import FormikLogin from "./components/auth/login";
+import FormikRegister from "./components/auth/register";
 
 function App() {
+
+  let location = useLocation()
+
   return (
     <div className="App">
       <header className="App-header">
-        <ConsumerLogin/>     
-        <FarmerRegister/>  
+        <Switch>
+          <Route exact path="/shop/login">
+            <FormikLogin location = {location}/>
+          </Route>
+          <Route exact path="/shop/register">
+            <FormikRegister location = {location}/>
+          </Route>
+          <Route exact path="/farmer/login">
+            <FormikLogin location = {location}/>
+          </Route>
+          <Route exact path="/farmer/register">
+            <FormikRegister location = {location} />
+          </Route>
+        </Switch>
       </header>
     </div>
   );
