@@ -1,10 +1,10 @@
 import React from "react";
 import { Form, Field, withFormik } from "formik";
 import * as Yup from "yup";
-import { Button, Checkbox, Form as SemanticForm } from "semantic-ui-react";
-import axios from "axios";
+import { Button, Form as SemanticForm, Loader } from "semantic-ui-react";
 import { loginAttempt } from '../../actions'
 import { connect } from 'react-redux'
+
 
 
 const Login = props => {
@@ -15,7 +15,7 @@ const Login = props => {
     <div className="form_container">
     <Form location = {location}>
       <SemanticForm>
-          <h2> {location.pathname === '/farmer/login' ? "Farmer Login"  : "Shop Login"} </h2>
+          <h2> {location.pathname === '/farmer/login/' ? "Farmer Login"  : "Shop Login"} </h2>
           <SemanticForm.Field>
             <Field placeholder="Username" name="username" type="text" />
           </SemanticForm.Field>
@@ -26,7 +26,7 @@ const Login = props => {
               type="password"
             />
           </SemanticForm.Field>
-           <Button type="submit">Go</Button>
+           <Button type="submit">{props.isLoading? <Loader active inline='centered' size = 'mini' />  : "Go"}</Button>
           </SemanticForm>
           </Form>
     </div>
