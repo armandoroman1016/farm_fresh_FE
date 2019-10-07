@@ -3,6 +3,8 @@ export {
     LOGIN_SUCCESS,
     LOGIN_ERROR,
     loginAttempt,
+    handleSuccess,
+    handleError
 }
 from './auth_actions/login'
 

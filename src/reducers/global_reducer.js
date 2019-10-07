@@ -14,7 +14,6 @@ import {
 } from "../actions";
 
 const initialState = {
-    userId: null,
     isLoading: false,
     error: "",
     hasToken: false,
@@ -54,7 +53,7 @@ export const globalReducer = (state = initialState, action) => {
                 isLoading: false,
                     hasToken: true,
                     user: action.payload,
-                    err: ''
+                    error: ''
             };
         case REGISTER_ERROR:
             return {

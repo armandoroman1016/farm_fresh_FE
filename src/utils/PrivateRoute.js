@@ -1,8 +1,10 @@
 import React from 'react';
 
-import { Route, Redirect } from 'react-router-dom';
+import { Route, Redirect } from 'react-router';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
+  //? CHECKING USER TYPE IN PATH NAME TO REDIRECT TO EITHER USER TYPE
+  const userType = rest.path.split('/')[1] 
 
   return (
     <>
@@ -10,7 +12,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
         if (localStorage.getItem('token')) {
           return <Component {...props} />
         }
-        return <Redirect to='/login' />;
+        return <Redirect to={`/${userType}/login`}/>;
       }}
       />
     </>
