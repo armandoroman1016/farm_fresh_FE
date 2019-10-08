@@ -8,14 +8,17 @@ import FormikLogin from "./components/auth/login";
 import FormikRegister from "./components/auth/register";
 import Home from './components/consumer/home'
 import Dash from './components/farmer/dashboard.js'
+import NavBar from './components/Nav'
 
 function App() {
 
   let location = useLocation()
   let history = useHistory()
+
   return (
     <div className="App">
       <header className="App-header">
+      <NavBar />
         <Switch>
           <Route exact path="/shop/login">
             <FormikLogin location = {location} history = {history}/>

@@ -54,6 +54,7 @@ const FormikLogin = withFormik({
       .then(res => {
         props.props.handleSuccess(res.data.user)
         localStorage.setItem("token", res.data.token);
+        localStorage.setItem("ff_berries", res.data.user.id);
         props.props.history.push(`/${userType}/dashboard/`)
       })
       .catch(err => props.props.handleError(err.response));
