@@ -2,20 +2,20 @@ import React from "react";
 import { Form, Field, withFormik } from "formik";
 import * as Yup from "yup";
 import { Button, Form as SemanticForm, Loader } from "semantic-ui-react";
-import { loginAttempt } from '../../actions'
+import { loginAttempt, handleSuccess, handleError } from '../../actions'
 import { connect } from 'react-redux'
-
-
+import { Redirect } from 'react-router'
+import axios from 'axios'
 
 const Login = props => {
 
-  const {location} = props
-
+  const { location } = props
+  
   return (
     <div className="form_container">
-    <Form location = {location}>
-      <SemanticForm>
-          <h2> {location.pathname === '/farmer/login/' ? "Farmer Login"  : "Shop Login"} </h2>
+      <Form location={location}>
+        <SemanticForm>
+          <h2> {location.pathname.split('/').includes('farmer') ? "Farmer Login" : "Shop Login"} </h2>
           <SemanticForm.Field>
             <Field placeholder="Username" name="username" type="text" />
           </SemanticForm.Field>
@@ -26,9 +26,9 @@ const Login = props => {
               type="password"
             />
           </SemanticForm.Field>
-           <Button type="submit">{props.isLoading? <Loader active inline='centered' size = 'mini' />  : "Go"}</Button>
-          </SemanticForm>
-          </Form>
+          <Button type="submit">{props.isLoading ? <Loader active inline='centered' size='mini' /> : "Go"}</Button>
+        </SemanticForm>
+      </Form>
     </div>
   );
 };
@@ -45,15 +45,27 @@ const FormikLogin = withFormik({
     password: Yup.string().required("Password is required field.")
   }),
   handleSubmit(values, props) {
-    const loginEndpoint = props.props.location.pathname
-    props.props.loginAttempt(loginEndpoint, values)
-  }
-})(Login);
+    //! waiting for login attempt to resolve before trying to push onto the history object.
+      const loginEndpoint = props.props.location.pathname;
+      const userType = loginEndpoint.split('/')[1]
+      props.props.loginAttempt()
+      axios
+      .post(`https://farm-fresh-bw.herokuapp.com/api/auth${loginEndpoint}`, values)
+      .then(res => {
+        props.props.handleSuccess(res.data.user)
+        localStorage.setItem("token", res.data.token);
+        localStorage.setItem("ff_berries", res.data.user.id);
+        props.props.history.push(`/${userType}/dashboard/`)
+      })
+      .catch(err => props.props.handleError(err.response));
+
+  }})(Login);
 
 const mapStateToProps = state => {
   return {
-     isLoading : state.isLoading
+    isLoading: state.isLoading,
+    hasToken: state.hasToken
   }
 }
 
-export default connect(mapStateToProps, {loginAttempt})(FormikLogin)
+export default connect(mapStateToProps, { loginAttempt, handleSuccess, handleError })(FormikLogin)

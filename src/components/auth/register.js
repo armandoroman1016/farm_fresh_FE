@@ -7,20 +7,22 @@ import { getCities, getStates, registerAttempt } from "../../actions";
 
 const Register = props => {
   const { location } = props;
+  const { getCities } = props
+  const { getStates } = props
 
   useEffect(() => {
     if (location.pathname === "/shop/register") {
-      props.getCities();
-      props.getStates();
+      getCities();
+      getStates();
     }
-  }, []);
+  }, [location]);
 
   return (
     <div className="form_container">
       <SemanticForm>
         <Form location={location}>
           <h2>
-            {location.pathname === "/farmer/register"
+            {location.pathname.split('/').includes('farmer')
               ? "Farmer Register"
               : "Shop Register"}
           </h2>
