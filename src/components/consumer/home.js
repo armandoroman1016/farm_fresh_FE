@@ -18,7 +18,6 @@ const Home = props => {
 
     return (
         <div>
-            <h1>Hello Shopper</h1>
             <Farms />
         </div>
     )

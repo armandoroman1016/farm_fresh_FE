@@ -1,7 +1,15 @@
 import React from 'react'
 
-const Farms = props => {
-    return <h1>Hello Shopper</h1>
+const Farm = props => {
+
+    const { farm } = props
+
+    return (
+        <div className = 'farm-container'>
+            <p>{farm.name}</p>
+            <p>{farm.address}</p>
+        </div>
+        )
 }
 
-export default Farms;
+export default Farm;

@@ -1,7 +1,26 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import Farm from './Farm'
+
 
 const Farms = props => {
-    return <h1>Farms</h1>
+
+    const { farms } = props
+
+    return (
+        <div className = 'farms-container'>
+            <h1>Shop Farms</h1>
+            { farms.length ? farms.map( farm => {
+               return <Farm farm = {farm} key = {farm.id}/>
+            }) : null}
+        </div>
+    )
 }
 
-export default Farms;
+const mapStateToProps = state => {
+    return {
+        farms: state.shoppingReducer.farms
+    }
+}
+
+export default connect(mapStateToProps, {})(Farms);
