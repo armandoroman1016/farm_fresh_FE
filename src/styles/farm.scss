@@ -1,23 +1,32 @@
-.farm-container{
-    width: 35%;
-    height: 30%;
-    text-align: left;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    img{
-        width: 100%;;
-        border-radius: 5px;
-    }
-    p{
-        margin-left: .5rem;
-    }
-    .farm-name{
-        margin-top:1.2rem;
-    }
-    .farm-address{
-        font-size:1.2rem;
-        padding: 0;
-        margin-top: -15px;
+.farms-container {
+    width: 100vw;
+    height: 35%;
+    padding:2rem;
+    margin-top: 8%;
+    .farm-container {
+        width: 35%;
+        height: 100%;
+        text-align: left;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+
+        img {
+            width: 100%;
+            border-radius: 5px;
+        }
+
+        p {
+            margin-left: .5rem;
+        }
+
+        .farm-name {
+            margin-top: 1.2rem;
+        }
+
+        .farm-address {
+            font-size: 1.2rem;
+            margin-top: -15px;
+        }
     }
 }

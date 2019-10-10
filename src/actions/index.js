@@ -35,5 +35,13 @@ export {
     GET_USER_DATA_START,
     GET_USER_DATA_SUCCESS,
     GET_USER_DATA_ERROR,
-    getUser
+    getUser,
+    GET_CATEGORIES_START,
+    GET_CATEGORIES_SUCCESS,
+    GET_CATEGORIES_ERROR,
+    getCategories,
+    GET_LOCAL_ITEMS_START,
+    GET_LOCAL_ITEMS_SUCCESS,
+    GET_LOCAL_ITEMS_ERROR,
+    getLocalItems
 } from './consumer_actions/shopping'

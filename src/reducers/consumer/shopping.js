@@ -4,13 +4,19 @@ import {
   GET_LOCAL_FARMS_ERROR,
   GET_USER_DATA_START,
   GET_USER_DATA_SUCCESS,
-  GET_USER_DATA_ERROR
+  GET_USER_DATA_ERROR,
+  GET_CATEGORIES_START,
+  GET_CATEGORIES_SUCCESS,
+  GET_CATEGORIES_ERROR,
+  GET_LOCAL_ITEMS_START,
+  GET_LOCAL_ITEMS_SUCCESS,
+  GET_LOCAL_ITEMS_ERROR,
 } from "../../actions/index";
 
 const initialState = {
   farms: [],
-  shoppingCategories: [],
-  shoppingItems: [],
+  categories: [],
+  items: [],
   shoppingCart: [],
   isLoading: false,
   error: "",
@@ -21,21 +27,21 @@ export const shoppingReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_USER_DATA_START:
       return {
-          ...state,
-          isLoading:true
+        ...state,
+        isLoading: true
       };
     case GET_USER_DATA_SUCCESS:
       return {
         ...state,
-        isLoading:false,
-        user: action.payload,
-        error: ""
+        isLoading: false,
+          user: action.payload,
+          error: ""
       };
     case GET_USER_DATA_ERROR:
       return {
         ...state,
-        isLoading:false,
-        error: action.payload
+        isLoading: false,
+          error: action.payload
       };
     case GET_LOCAL_FARMS_START:
       return {
@@ -46,16 +52,53 @@ export const shoppingReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        farms: action.payload,
-        error: ""
+          farms: action.payload,
+          error: ""
       };
     case GET_LOCAL_FARMS_ERROR:
       return {
         ...state,
         isLoading: false,
-        error: action.payload
+          error: action.payload
       };
-    default:
-      return state;
+    case GET_CATEGORIES_START:
+      return {
+        ...state,
+        isLoading: true
+      };
+    case GET_CATEGORIES_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+          categories: action.payload,
+          error: ""
+      };
+    case GET_CATEGORIES_ERROR:
+      return {
+        ...state,
+        isLoading: false,
+          error: action.payload
+      };
+    case GET_LOCAL_ITEMS_START:
+      return {
+        ...state
+      }
+      case GET_LOCAL_ITEMS_SUCCESS:
+        return {
+          ...state,
+          isLoading: false,
+            items: action.payload,
+            error: ""
+        }
+        case GET_LOCAL_ITEMS_ERROR:
+          return {
+            ...state,
+            isLoading: false,
+              error: action.payload
+          }
+
+
+          default:
+            return state;
   }
 };

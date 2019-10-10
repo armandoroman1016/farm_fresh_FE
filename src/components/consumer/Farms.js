@@ -9,7 +9,7 @@ const Farms = props => {
 
     return (
         <div className = 'farms-container'>
-            <h1>Shop Farms</h1>
+            <h2>Shop By Farm</h2>
             { farms.length ? farms.map( farm => {
                return <Farm farm = {farm} key = {farm.id}/>
             }) : null}

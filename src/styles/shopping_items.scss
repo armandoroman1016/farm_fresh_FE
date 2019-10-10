@@ -1,0 +1,45 @@
+.items-container {
+    width: 100vw;
+    height: 35%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 2rem;
+
+    .items {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        overflow: hidden;
+
+        .item-container {
+            width: 22%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            margin: 1rem;
+
+            h3{
+                margin:0.4rem 0;;
+            }
+
+            img {
+                width: 90%;
+                height: auto;
+                border-radius: 5px;
+            }
+
+            .item-data {
+                p {
+                    font-size: 1.3rem;
+                    margin:.4rem 0;
+                    padding:0;
+                }
+
+            }
+        }
+    }
+}
